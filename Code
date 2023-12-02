@@ -1,1 +1,276 @@
  link for code running in google collab  :   https://colab.research.google.com/drive/1NdYXM9PYtJD0aQkcJzBV0CYEJvelEIdt?usp=sharing#scrollTo=jYYQWc86PIxM 
+
+
+
+
+Code for the project:
+
+
+# Importing necessary libraries
+import matplotlib.pyplot as plt
+from keras.models import load_model
+from keras.preprocessing import image
+import numpy as np
+import cv2
+from keras.preprocessing.image import ImageDataGenerator
+from PIL import Image as pil_image
+%matplotlib inline
+from keras import backend as K
+import tensorflow as tf
+from keras.models import Sequential
+from keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D
+from skimage import io
+from mpl_toolkits.axes_grid1 import ImageGrid
+import random
+image_gen = ImageDataGenerator(rotation_range=30, width_shift_range=0.1,height_shift_range=0.1, rescale=1/255,shear_range=0.2,zoom_range=0.2, horizontal_flip=True, fill_mode='nearest')
+image_shape=(150,150,3)
+model = Sequential()
+model.add(Conv2D(filters=32, kernel_size=(3,3), input_shape=image_shape, activation='relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), input_shape=image_shape, activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(128))
+model.add(Activation('relu'))
+model.add(Dropout(0.5))
+model.add(Dense(1))
+model.add(Activation('sigmoid'))
+model.compile(loss='binary_crossentropy',
+             optimizer='Adam',
+             metrics=['accuracy'])
+model.save_weights('model1.h5')
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+import os
+image_directory = 'drive/My Drive/teeth_dataset/Training/caries'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset/Training/caries',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 200:        
+        break
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+image_directory = 'drive/My Drive/teeth_dataset/Training/without_caries'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset/Training/without_caries',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 200:        
+        break
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+import os
+image_directory = 'drive/My Drive/teeth_dataset/test/caries'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset/test/caries',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 100:        
+        break
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+import os
+image_directory = 'drive/My Drive/teeth_dataset/test/no-caries'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset/test/no-caries',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 100:        
+        break
+train_image_gen=image_gen.flow_from_directory('drive/My Drive/teeth_dataset/Training/',                                          target_size=image_shape[:2],              batch_size=batch_size,                                             class_mode='binary')
+test_image_gen=image_gen.flow_from_directory('drive/My Drive/teeth_dataset/test',                                             target_size=image_shape[:2],                                             batch_size=batch_size,                                             class_mode='binary')
+import warnings
+warnings.filterwarnings('ignore')
+results = model.fit_generator(train_image_gen,
+                              epochs=40,
+                             steps_per_epoch=10,
+                             validation_data=test_image_gen,
+                             validation_steps=12)
+from tensorflow.keras.preprocessing import image
+import numpy as np
+def get_res(path):
+    raw_img = image.load_img(path, target_size=(150, 150))
+    raw_img = image.img_to_array(raw_img)
+    raw_img = np.expand_dims(raw_img, axis=0)
+    raw_img = raw_img / 255
+    predict = model.predict(raw_img)
+    plt.imshow(cv2.imread(path))
+    if predict >= 0.5:
+        text = "Healthy tooth"
+    elif 0.25 <= predict <= 0.45:
+        text = "Mild Cavity"
+    else:
+        text = "Cavity infected tooth"
+    plt.show()
+    print(text)
+path='drive/My Drive/teeth_dataset/test/caries/aug_0_1903.jpg'
+get_res(path)
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+import os
+image_directory = 'drive/My Drive/teeth_dataset_xray/Training/xray_cavity'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):     
+        image = io.imread(image_directory + '/' + image_name)  
+        image = pil_image.fromarray(image,"RGB")        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset_xray/Training/xray_cavity',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 200:        
+        break
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+image_directory = 'drive/My Drive/teeth_dataset_xray/Training/xray_no_cavity'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset_xray/Training/xray_no_cavity',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 200:        
+        break
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+import os
+image_directory = 'drive/My Drive/teeth_dataset_xray/Testing/xray_cavity'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset_xray/Testing/xray_cavity',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 100:        
+        break
+datagen = ImageDataGenerator(        
+        rotation_range = 40,
+        shear_range = 0.2,
+        zoom_range = 0.2,
+        horizontal_flip = True,
+        brightness_range = (0.5, 1.5))
+import os
+image_directory = 'drive/My Drive/teeth_dataset_xray/Testing/xray_no_cavity'
+SIZE = 224
+dataset = []
+my_images = os.listdir(image_directory)
+
+for i, image_name in enumerate(my_images):
+   
+    if (image_name.split('.')[1] == 'jpg' or image_name.split('.')[1] == 'jpeg'):        
+        image = io.imread(image_directory + '/' + image_name)        
+        image = pil_image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
+i = 0
+for batch in image_gen.flow(x, batch_size=16,save_to_dir= 'drive/My Drive/teeth_dataset_xray/Testing/xray_no_cavity',save_prefix='aug',save_format='jpg'):    
+    i += 1    
+    if i > 100:        
+        break
+train_image_gen=image_gen.flow_from_directory('drive/My Drive/teeth_dataset_xray/Training/',                                             target_size=image_shape[:2],                                             batch_size=batch_size,                                             class_mode='binary')
+test_image_gen=image_gen.flow_from_directory('drive/My Drive/teeth_dataset_xray/Testing',                                             target_size=image_shape[:2],                                             batch_size=batch_size,                                             class_mode='binary')
+results = model.fit_generator(train_image_gen,
+                              epochs=40,
+                             steps_per_epoch=10,
+                             validation_data=test_image_gen,
+                             validation_steps=12)
+path='drive/My Drive/teeth_dataset_xray/Testing/xray_cavity/945.jpg'
+get_res(path)
+
