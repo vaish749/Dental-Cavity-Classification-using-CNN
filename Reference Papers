@@ -1,1 +1,18 @@
+these are the reference papers used in this project
+
+[1]	Lee, S., Oh, Si., Jo, J. et al. Deep learning for early dental caries detection in bitewing radiographs. Sci Rep 11, 16807 (2021). https://doi.org/10.1038/s41598-021-96368-7
+[2]	Bhattacharjee, Niharika. (2022). Automated Dental Cavity Detection System Using Deep Learning and Explainable AI. AMIA ... Annual Symposium proceedings. AMIA Symposium. 2022. 140-148.
+[3]	Sahu, Madhusmita & Dash, Rasmita. (2020). A Mask-based Cavity Detection Model for Dental X-ray Image. 1-4. 10.1109/ICCSEA49143.2020.9132908. 
+[4]	Patil, Shashikant & Kulkarni, Vaishali & Bhise, Archana. (2019). Algorithmic analysis for dental caries detection using an adaptive neural network architecture. Heliyon. 5. e01579. 10.1016/j.heliyon.2019.e01579. 
+[5]	Qayyum, Adnan & Tahir, Ahsen & Butt, Muhammad & Luke, Alexander & Abbas, Hasan & Qadir, Junaid & Arshad, Kamran & Assaleh, Khaled & Imran, Muhammad & Abbasi, Qammer. (2023). Dental caries detection using a semi-supervised learning approach. Scientific Reports. 13. 10.1038/s41598-023-27808-9. 
+[6]	M. M. Lakshmi and P. Chitra, "Classification of Dental Cavities from X-ray images using Deep CNN algorithm," 2020 4th International Conference on Trends in Electronics and Informatics (ICOEI)(48184), Tirunelveli, India, 2020, pp. 774-779, doi: 10.1109/ICOEI48184.2020.9143013.
+[7]	Thamrin, Sri Astuti, et al. “Predicting Obesity in Adults Using Machine Learning Techniques: An Analysis of Indonesian Basic Health Research 2018.” Frontiers, 27 Apr. 2021, www.frontiersin.org/articles/10.3389/fnut.2021.669155/full.
+[8]	Chen, H., Zhang, K., Lyu, P. et al. A deep learning approach to automatic teeth detection and numbering based on object detection in dental periapical films. Sci Rep 9, 3840 (2019). https://doi.org/10.1038/s41598-019-40414-y
+[9]	M. A. H. Khan, P. S. Giri and J. A. A. Jothi, "Detection of Cavities from Oral Images using Convolutional Neural Networks," 2022 International Conference on Electrical, Computer and Energy Technologies (ICECET), Prague, Czech Republic, 2022, pp. 1-6, doi: 10.1109/ICECET55527.2022.9872786.
+[10]	M. A. H. Khan, P. S. Giri and J. A. A. Jothi, "Detection of Cavities from Oral Images using Convolutional Neural Networks," 2022 International Conference on Electrical, Computer and Energy Technologies (ICECET), Prague, Czech Republic, 2022, pp. 1-6, doi: 10.1109/ICECET55527.2022.9872786.
+[11]	D. Samiappan, J. R, N. S. K and N. K. N, "Analysis of Dental X-Ray Images for the Diagnosis and Classification of Oral Conditions," 2023 7th International Conference on Computing Methodologies and Communication (ICCMC), Erode, India, 2023, pp. 564-569, doi: 10.1109/ICCMC56507.2023.10083914.
+[12]	M. P. Muresan, A. R. Barbura and S. Nedevschi, "Teeth Detection and Dental Problem Classification in Panoramic X-Ray Images using Deep Learning and Image Processing Techniques," 2020 IEEE 16th International Conference on Intelligent Computer Communication and Processing (ICCP), Cluj-Napoca, Romania, 2020, pp. 457-463, doi: 10.1109/ICCP51029.2020.9266244.
+[13]	https://www.kaggle.com/datasets/pushkar34/teeth-dataset
+[14]	https://data.mendeley.com/datasets/hxt48yk462/1
+[15]	https://zenodo.org/record/4907880
 
